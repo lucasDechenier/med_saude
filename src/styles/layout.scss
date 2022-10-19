@@ -1,0 +1,44 @@
+// Flex
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.flex-grow {
+  flex-grow: 1;
+}
+
+@for $i from 0 through 5 {
+  .flex-shrink-#{$i} {
+    flex-shrink: #{$i};
+  }
+}
+
+@each $p, $v in (start flex-start) (center center) (between space-between) (space-around space-around) (end flex-end) {
+  .content-#{$p} {
+    align-content: #{$v};
+  }
+  .justify-#{$p} {
+    justify-content: #{$v};
+  }
+  .items-#{$p} {
+    align-items: #{$v};
+  }
+  .self-#{$p} {
+    align-self: #{$v};
+  }
+}
+
+@each $o in flex-start, flex-end, center, stretch, baseline {
+  .align-items-#{$o} {
+    align-items: #{$o}
+  }
+}
+
+// Grid
+@for $i from 0 through 20 {
+  .gap-#{$i} {
+    gap: #{$i * 0.25}rem;
+  }
+  .col-gap-#{$i} {
+    column-gap: #{$i * 0.25}rem;
+  }
+}

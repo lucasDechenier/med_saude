@@ -1,0 +1,53 @@
+$borders: ("a" "") (l "-left") (t "-top") (r "-right") (b "-bottom") ("tl" "-top-left") ("tr" "-top-right") ("bl" "-bottom-left") ("br" "-bottom-right");
+
+@each $s in solid dashed {
+  .border-#{$s} {
+    border-style: #{$s} !important;
+  }
+}
+
+@each $z in 0 1 2 3 4 5 6 7 8 9 10 {
+  .bx-#{$z} {
+    border-left-width: #{$z}px;
+    border-left-style: solid;
+    border-right-width: #{$z}px;
+    border-right-style: solid;
+  }
+
+  .by-#{$z} {
+    border-top-width: #{$z}px;
+    border-top-style: solid;
+    border-bottom-width: #{$z}px;
+    border-bottom-style: solid;
+  }
+
+  @each $p, $b in $borders {
+    .b#{$p}-#{$z} {
+      border#{$b}-width: #{$z}px;
+      border#{$b}-style: solid;
+    }
+    .bd#{$p}-#{$z} {
+      border#{$b}-width: #{$z}px;
+      border#{$b}-style: dotted;
+    }
+    .border#{$b}-#{$z} {
+      border#{$b}-width: #{$z}px;
+      border#{$b}-style: solid;
+    }
+    .br#{$p}-#{$z} {
+      border#{$b}-radius: #{$z*4}px !important;
+    }
+  }
+}
+
+@each $n, $c in $colors {
+  @each $p, $b in $borders {
+    .border#{$b}-color-#{$n} {
+      border-color: #{$c};
+    }
+
+    .b#{$p}-#{$n} {
+      border#{$b}-color: #{$c};
+    }
+  }
+}

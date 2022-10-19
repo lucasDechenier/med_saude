@@ -1,0 +1,30 @@
+$primary: "primary" #00CCB5;
+$white: "white" #FFFFFF;
+
+$colors: $primary $white;
+
+@each $c in $colors {
+  .bg-#{nth($c, 1)} {
+    background-color: #{nth($c, 2)} !important;
+  }
+
+  .hover-bg-#{nth($c, 1)} {
+    &:hover {
+      background-color: #{nth($c, 2)} !important;
+    }
+  }
+
+  .hover-color-#{nth($c, 1)} {
+    &:hover {
+      color: #{nth($c, 2)} !important;
+    }
+  }
+
+  .color-#{nth($c, 1)} {
+    color: #{nth($c, 2)} !important;
+  }
+
+  .border-color-#{nth($c, 1)} {
+    border-color: #{nth($c, 2)} !important;
+  }
+}

@@ -1,0 +1,106 @@
+$font_family: Montserrat;
+
+.truncate {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.letter-spacing-normal{
+  letter-spacing: normal !important;
+}
+
+.text-end {
+  text-align: end;
+}
+
+.text-small{
+  font-size: 12px !important;
+}
+.text-base {
+  font-size: 14px !important;
+}
+.text-large {
+  font-size: 16px !important;
+  line-height: 24px !important;
+}
+
+.text-subtitle {
+  font-size: 19px !important;
+}
+
+.text-title_4{
+  font-size: 26px;
+}
+
+.text-title_5{
+  font-size: 22px;
+}
+
+.no-line-height{
+  line-height: normal;
+}
+
+.semibold {
+  font-weight: 600 !important;
+}
+
+// name, font-size line-height
+$htitle_1: ("htitle_1", 42px, 48px);
+$htitle_2: ("htitle_2", 36px, 40px);
+$htitle_3: ("font-32", 32px, 40px);
+$htitle_4: ("font-26", 26px, 32px);
+$htitle_5: ("font-22", 22px, 32px);
+$hsubtitle: ("font-18", 18px, 24px);
+$hlarge: ("font-16", 16px, 24px);
+$hbase: ("font-14", 14px, 24px);
+$hsmall: ("font-12", 12px, 16px);
+
+$fonts: $htitle_1, $htitle_2, $htitle_3, $htitle_4, $htitle_5, $hsubtitle, $hlarge, $hbase, $hsmall;
+@each $name, $font-size, $line-height in $fonts {
+  .#{$name} {
+    font-family: $font_family !important;
+    line-height: $line-height !important;
+    font-size: $font-size !important;
+    font-weight: 500 !important;
+    &--semibold {
+      font-family: $font_family !important;
+      font-size: $font-size !important;
+      font-weight: 600 !important;
+    }
+    &--normal{
+      font-family: $font_family !important;
+      font-size: $font-size !important;
+      font-weight: normal !important;
+    }
+    &--bold {
+      font-family: $font_family !important;
+      font-size: $font-size !important;
+      font-weight: bold !important;
+    }
+  }
+}
+
+.text-align-center {
+  text-align: center;
+}
+.margin-auto {
+  margin: auto;
+}
+
+@each $z in 100 200 300 400 500 600 700 800 900{
+  .font-weight-#{$z} {
+    font-weight: #{$z};
+  }
+}
+
+@each $v in (underline) {
+  .text-#{$v} {
+    text-decoration: $v !important;
+  }
+  .hover-text-#{$v} {
+    &:hover {
+      text-decoration: $v !important;
+    }
+  }
+}
