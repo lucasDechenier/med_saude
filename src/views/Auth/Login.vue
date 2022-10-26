@@ -20,7 +20,7 @@
         <section class="d-flex flex-column overflow-auto flex-grow bg-white px-6 pt-15">
           <v-form ref="form">
             <div>
-              <v-text-field v-model="name" filled 
+              <v-text-field v-model="email" filled 
                             rounded dense color="#00CCB5"
                             placeholder="Digite seu email"
                             :rules="[required]"
@@ -45,7 +45,7 @@
                    class="bg-primary color-white text-normal font-18"
                    height="58"
                    min-width="200"
-                   @click="login">
+                   @click="toLogin">
               Entrar
             </v-btn>
           </div>
@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import Breakpoints from "@/mixins/Breakpoints";
 import {required} from "@/utils/validations";
 
@@ -71,17 +72,21 @@ export default {
   mixins: [Breakpoints],
   data() {
     return {
-      name: "",
+      email: "",
       password: "",
       show_password: false,
     };
   },
   methods: {
+    ...mapActions(['login']),
     required: required,
-    login(){
+    toLogin(){
       if(!this.$refs?.form?.validate()) return
-
-      console.log('Login feito redirecione para página de login')
+      this.login({email: this.email, password: this.password}).then(() => {
+        this.$router.push('/');
+      }).catch((error) => {
+        this.alertError({title: error.response.data.message || 'Usuário e senhas inválidos'})
+      })
       this.$router.push('/');
     },
     register(){
