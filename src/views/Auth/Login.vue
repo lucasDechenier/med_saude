@@ -51,7 +51,8 @@
           </div>
         </section>
         <footer class="d-flex justify-center font-18 color-white py-3">
-          <span class="px-3 bra-3 hover-bg-white hover-color-primary transition-all pointer"
+          <span v-ripple 
+                class="px-3 bra-3 hover-bg-white hover-color-primary transition-all pointer"
                 @click="register">
             Cadastre-se
           </span>

@@ -1,7 +1,9 @@
 $primary: "primary" #00CCB5;
+$seconday: "secondary" #C7F2E7;
+$cyan: "cyan" #3F8B83;
 $white: "white" #FFFFFF;
 
-$colors: $primary $white;
+$colors: $primary $white $seconday $cyan;
 
 @each $c in $colors {
   .bg-#{nth($c, 1)} {

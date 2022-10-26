@@ -7,6 +7,8 @@ const Register = () => import(/* webpackChunkName: "Register" */'../views/Auth/R
 
 const Home = () => import('../views/Home.vue')
 
+const UserSchedule = () => import('../views/User/UserSchedule.vue')
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -15,6 +17,7 @@ const routes = [
 
   { path: '/login', name: 'login', component: Login},
   { path: '/register', name: 'registro', component: Register},
+  { path: '/schedule', name: 'registro', component: UserSchedule},
 ]
 
 const router = new VueRouter({
