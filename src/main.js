@@ -7,6 +7,7 @@ import VueMask from 'v-mask'
 import store from './store/index'
 import SweetAlert from './mixins/SweetAlert'
 import VueSweetalert2 from 'vue-sweetalert2'
+import './filters/DateTime'
 
 Vue.use(VueMask);
 

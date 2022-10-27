@@ -37,38 +37,24 @@ export const getters = {
   countLoading: state => {
     return state.countLoading
   },
-  setLoading(state, isLoading){
-    if (isLoading) {
-      state.countLoading += 1;
-      state.loadingApp = true;
-    } else if (state.countLoading > 0) {
-      state.countLoading -= 1;
-    }
-    if(state.countLoading === 0) state.loadingApp = false;
-  }
+  authToken: state => {
+    return state.authToken;
+  },
 };
 
 export const actions = {
   login({commit}, value) {
-    commit('userLogged', {
-      name: 'Lucas',
-      email: 'Teste'
-    })
-    commit('setAuthToken', '1234');
-    return Promise.resolve(value)
-    /* return SessionService.login(value.email, value.password).then(data => {
+    return SessionService.login(value.email, value.password).then(data => {
       const user = Object.assign(data.user, {isWatson: data.is_watson})
 
       commit('userLogged', user);
-      commit('setAuthToken', data.token);
-    }) */
+      commit('setAuthToken', data.authorizationToken);
+    })
   },
   logout({commit}) {
-    return SessionService.logout()
-      .then(() => {
-        commit('userLogged', null);
-        commit('setAuthToken', null);
-      })
+    commit('userLogged', null);
+    commit('setAuthToken', null);
+    return Promise.resolve()
   },
 };
 
@@ -89,6 +75,16 @@ export const mutations = {
     } else {
       storage.removeItem('authToken');
     }
+  },
+
+  setLoading(state, isLoading){
+    if (isLoading) {
+      state.countLoading += 1;
+      state.loadingApp = true;
+    } else if (state.countLoading > 0) {
+      state.countLoading -= 1;
+    }
+    if(state.countLoading === 0) state.loadingApp = false;
   },
 };
 

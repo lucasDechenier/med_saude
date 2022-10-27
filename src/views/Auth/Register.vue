@@ -116,6 +116,8 @@
 import Breakpoints from "@/mixins/Breakpoints";
 import {required} from "@/utils/validations";
 import DatePicker from '@/components/form/DatePicker'
+import UserService from "@/services/UserService";
+
 export default {
   name: "Register",
   components: { DatePicker },
@@ -135,16 +137,13 @@ export default {
   },
   methods: {
     required: required,
-    login(){
-      if(!this.$refs?.form?.validate()) return
-
-      console.log('Login feito redirecione para página de login')
-      this.$router.push('/');
-    },
     register(){
       if(!this.$refs?.form?.validate()) return
 
-      console.log('Registro feito', this.user)
+      UserService.register(this.user).then(() => {
+        this.alertSuccess({title: 'Registro feito com sucesso'})
+        this.goToLogin()
+      })
     },
     confirmationPassword(value){
       return value === this.user.password ? true : 'Confirmação de senha inválida'

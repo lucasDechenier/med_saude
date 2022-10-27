@@ -1,7 +1,7 @@
 import Api from "./Api";
 
 export default {
-  base: 'v1/session',
+  base: 'user/login',
   
   login (email, password) {
     return Api().post(this.base, {

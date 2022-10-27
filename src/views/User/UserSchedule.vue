@@ -17,35 +17,53 @@
         :lazy-src="require('@/assets/logo.png')">
       </v-img>
       <span class="color-white font-35--bold text-center">
-        {{ isSchedule ?'Agendar consultas' : 'Agendar exames' }}
+        {{ isSpecialist ?'Agendar consultas' : 'Agendar exames' }}
       </span>
     </header>
     <section class="d-flex flex-column overflow-auto py-9 bg-white flex-grow">
-      <section class="d-flex px-9 gap-12 flex-wrap">
-        <div v-for="item in items" :key="item.id" 
-             :class="xs ? 'flex-column': ''"
-             class="pl-5 pb-6 d-flex gap-2 justify-space-between container-schedule">
-          <section :class="xs ? 'mb-3': ''" 
-                   class="d-flex flex-column gap-2 color-primary font-14--bold mr-3 justify-space-between">
-            <section class="d-flex flex-column gap-2">
-              <span>{{ item.name }}</span>
-              <span>Valor: R$ {{ item.price }}</span>
+      <v-slide-y-transition>
+        <section v-if="(items || []).length" class="d-flex px-9 gap-12 flex-wrap">
+          <div v-for="item in items" :key="item.id" 
+               :class="xs ? 'flex-column': ''"
+               class="pl-5 pb-6 d-flex gap-2 justify-space-between container-schedule">
+            <section :class="xs ? 'mb-3': ''" 
+                     class="d-flex flex-column gap-2 color-primary font-14--bold mr-3 justify-space-between">
+              <section class="d-flex flex-column gap-2">
+                <span>{{ item.title }}</span>
+                <div class="bra-2 d-flex">
+                  <span class="bra-3 font-12--bold px-2 bg-primary color-white py-1">
+                    {{ item.description }}
+                  </span>
+                </div>
+                <span class="font-12--bold">Valor: R$ {{ item.price }}</span>
+              </section>
+              <div class="d-flex gap-3 flex-wrap font-12--bold">
+                <span>Data: {{ $options.filters.toFormated(item.appointmentDate) }}</span>
+                <span>Hora: {{ item.appointmentHour }}H</span>
+              </div>
             </section>
-            <div class="d-flex gap-3 flex-wrap">
-              <span>Data: {{ item.data }}</span>
-              <span>Hora: {{ item.data }}</span>
-            </div>
-          </section>
-          <div class="d-flex flex-column">
-            <div v-ripple 
-                 class="bg-primary d-flex container-button py-4 px-4 
+            <div class="d-flex flex-column">
+              <div v-ripple 
+                   class="bg-primary d-flex container-button py-4 px-4 
                  text-center align-center justify-center
                  font-18--bold color-white hover-bg-secondary hover-color-primary transition-all pointer"
-                 @click="toSchedule(item.id)">
-              Agendar
+                   @click="toSchedule(item._id)">
+                Agendar
+              </div>
             </div>
           </div>
-        </div>
+        </section>
+      </v-slide-y-transition>
+      <section v-if="(items || []).length == 0 && showEmpty" class="flex-grow mt-10 align-center flex-column color-primary font-18--bold text-center d-flex">
+        <v-img
+          class="mb-8"
+          :contain="true"
+          :max-height="200"
+          :max-width="200"
+          :src="require('@/assets/box_no_content.png')"
+          :lazy-src="require('@/assets/box_no_content.png')">
+        </v-img>
+        Não há {{ isSpecialist ?' consultas' : 'exames' }} disponíveis para agendamento no momento
       </section>
     </section>
   </section>
@@ -54,115 +72,52 @@
 <script>
 import Breakpoints from "@/mixins/Breakpoints";
 import IconBtn from "@/components/IconBtn";
+import ScheduleService from "@/services/ScheduleService";
+
 export default {
   name: "Home",
   components: {IconBtn},
   mixins: [Breakpoints],
   data() {
     return {
-      schedules: [{
-        id: '1',
-        name: 'Acunputura as gag as gas asg asg as gas as s gsa gas gsag sa  gsa ag ag ag asg g sag asg a  gasg asg asg asg as gas gas gasg asg asg as gasg a',
-        price: 60.00,
-        data: '27/03/2000',
-        hora: '12:00'
-      },{
-        id: '1',
-        name: 'Acunputura',
-        price: 60.00,
-        data: '27/03/2000',
-        hora: '12:00'
-      },{
-        id: '1',
-        name: 'Acunputurag as gasg asg as ',
-        price: 60.00,
-        data: '27/03/2000',
-        hora: '12:00'
-      },{
-        id: '1',
-        name: 'Acunputura',
-        price: 60.00,
-        data: '27/03/2000',
-        hora: '12:00'
-      },{
-        id: '1',
-        name: 'Acunputura',
-        price: 60.00,
-        data: '27/03/2000',
-        hora: '12:00'
-      },{
-        id: '1',
-        name: 'Acunputura',
-        price: 60.00,
-        data: '27/03/2000',
-        hora: '12:00'
-      },{
-        id: '1',
-        name: 'Acunputura',
-        price: 60.00,
-        data: '27/03/2000',
-        hora: '12:00'
-      },{
-        id: '1',
-        name: 'Acunputura',
-        price: 60.00,
-        data: '27/03/2000',
-        hora: '12:00'
-      },{
-        id: '1',
-        name: 'Acunputura',
-        price: 60.00,
-        data: '27/03/2000',
-        hora: '12:00'
-      },{
-        id: '1',
-        name: 'Acunputura',
-        price: 60.00,
-        data: '27/03/2000',
-        hora: '12:00'
-      },{
-        id: '1',
-        name: 'Acunputura',
-        price: 60.00,
-        data: '27/03/2000',
-        hora: '12:00'
-      },{
-        id: '1',
-        name: 'Acunputura',
-        price: 60.00,
-        data: '27/03/2000',
-        hora: '12:00'
-      },{
-        id: '1',
-        name: 'Acunputura',
-        price: 60.00,
-        data: '27/03/2000',
-        hora: '12:00'
-      },],
-      exams: [{
-        id: '1',
-        name: 'Acunputura',
-        price: 60.00,
-        data: '27/03/2000',
-        hora: '12:00'
-      }],
+      schedules: [],
+      exams: [],
+      showEmpty: false,
     }
   },
   computed: {
     items(){
-      return this.isSchedule ? this.schedules : this.exams
+      return this.isSpecialist ? this.schedules : this.exams
     },
     type() {
-      return this.$route.query.type || 'schedule'; 
+      return this.$route.query.type || 'specialist'; 
     },
-    isSchedule() {
-      return this.type == 'schedule'
+    isSpecialist() {
+      return this.type == 'specialist'
     },
+  },
+  mounted(){
+    this.showEmpty = false
+    this.reload()
   },
   methods: {
     toSchedule(id){
       this.confirm({text: 'Você deseja confirmar o seu agendamento?'}, () =>{
-        console.log(id)
+        ScheduleService.toSchedule(id).then(() => {
+          this.alertSuccess({title: 'Agendamento feito com sucesso'})
+          this.reload()
+        })
+      })
+    },
+    reload(){
+      ScheduleService.opened().then(data => {
+        if(this.isSpecialist){
+          this.schedules = data.filter((d) => d.type == 'specialist') || []
+        }else{
+          this.exams = data.filter((d) => d.type == 'exam') || []
+        }
+      }).finally(() => {
+        this.showEmpty = true
       })
     },
     goHome(){

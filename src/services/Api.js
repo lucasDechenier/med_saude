@@ -2,30 +2,16 @@ import axios from 'axios'
 import store from '../store'
 import Vue from 'vue'
 
-export const PublicAPI = () => {
-  let http = axios.create({
-    baseURL: window.config.URL,
-    withCredentials: true
-  });
-
-  http.interceptors.request.use(function (request) {
-    request.headers['Accept'] = 'application/json'
-    request.headers['Content-Type'] = 'application/json'
-    return request
-  })
-  return http
-}
-
 export default () => {
   let http = axios.create({
     baseURL: window.config.URL,
-    withCredentials: true
   });
 
   http.interceptors.request.use(function (request) {
     request.headers['Accept'] = 'application/json'
     request.headers['Content-Type'] = 'application/json'
-    request.headers['Authorization'] = store.getters.authToken
+    request.headers['authorization-token'] = store.getters.authToken
+    request.headers['Access-Control-Allow-Origin'] = '*'
 
     store.commit('setLoading', true);
     return request

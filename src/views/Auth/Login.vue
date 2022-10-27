@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import Breakpoints from "@/mixins/Breakpoints";
 import {required} from "@/utils/validations";
 
@@ -78,17 +78,23 @@ export default {
       show_password: false,
     };
   },
+  computed: {
+    ...mapGetters(['isAdmin']),
+  },
   methods: {
     ...mapActions(['login']),
     required: required,
     toLogin(){
       if(!this.$refs?.form?.validate()) return
       this.login({email: this.email, password: this.password}).then(() => {
-        this.$router.push('/');
+        if(this.isAdmin){
+          this.$router.push('/admin')
+        }else{
+          this.$router.push('/');
+        }
       }).catch((error) => {
         this.alertError({title: error.response.data.message || 'Usuário e senhas inválidos'})
       })
-      this.$router.push('/');
     },
     register(){
       this.$router.push('/register');

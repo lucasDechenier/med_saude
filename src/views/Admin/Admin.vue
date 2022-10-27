@@ -16,13 +16,16 @@
           :src="require('@/assets/logo.png')"
           :lazy-src="require('@/assets/logo.png')">
         </v-img>
+        <span class="color-white font-35--bold text-center mt-4">
+          Painel administrativo
+        </span>
       </header>
       <section class=" flex-grow d-flex">
         <section class="d-flex flex-column align-center justify-center flex-wrap gap-10 py-10 flex-grow">
-          <section class="d-flex px-9 gap-6 flex-wrap" style="width: 100%;">
+          <section :class="xs ? 'px-6' : 'px-15'" class="d-flex gap-6 flex-wrap flex-column" style="width: 100%;">
             <div v-for="(item, index) in options" :key="index" 
                  :class="lgAndDown ? 'py-6': 'py-9'"
-                 class="container-option container-button bg-secondary text-center color-cyan font-20--bold
+                 class="container-button bg-secondary text-center color-cyan font-20--bold
             pointer hover-bg-white hover-color-primary transition-all px-4 align-center justify-center " @click="item.action">
               {{ item.name }}
             </div>
@@ -34,7 +37,7 @@
       <span>
         Numeros de emergência:
       </span>
-      <section class="d-flex gap-2 align-center justify-center gap-5">
+      <section class="d-flex align-center justify-center gap-5">
         <span>
           SAMU: 192
         </span>
@@ -61,22 +64,19 @@ export default {
   computed: {
     options() {
       return [
-        {name: 'Agendar consultas', action: () => this.schedule('specialist')},
-        {name: 'Agendar exames', action: () => this.schedule('exam')},
+        {name: 'Criar agendamento', action: () => this.createSchedule()},
         {name: 'Histórico de consultas', action: () => { this.history('specialist') }},
         {name: 'Hístorico de exames', action: () => { this.history('exam') }},
-        {name: 'Tire suas dúvidas', action: () => {}},
-        {name: 'Chamada de emergência', action: () => {}},
       ]
     }
   },
   methods: {
     ...mapActions(['logout']),
-    schedule(type) {
-      this.$router.push({path: '/schedule', query: {type: type || 'specialist'}});
+    createSchedule(){
+      this.$router.push('/admin/schedule')
     },
     history(type) {
-      this.$router.push({path: '/history', query: {type: type || 'specialist'}});
+      this.$router.push({path: '/admin/history', query: {type: type || 'specialist'}});
     },
     toLogout(){
       this.confirm({text: 'Deseja sair do sistema?'}, () =>{
@@ -91,18 +91,6 @@ export default {
 
 <style lang="scss" scoped>
   .container-button{
-    border-radius: 15px 15px 15px 0px;
-  }
-
-  @media (min-width: 801px){
-    .container-option{
-      width: calc(50% - 24px);
-    }
-  }
-
-  @media (max-width: 800px){
-    .container-option{
-      width: 100%;
-    }
+    border-radius: 15px 15px 15px 15px;
   }
 </style>
